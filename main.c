@@ -2,12 +2,14 @@
 #include <string.h>
 
 int main(int argc, char *argv[]) {
-  char path_buffer[_MAX_PATH]; 
-  char drive[_MAX_DRIVE]; 
-  char dir[_MAX_DIR]; 
-  char fname[_MAX_FNAME]; 
+  //Get program path information
+  char path_buffer[_MAX_PATH];
+  char drive[_MAX_DRIVE];
+  char dir[_MAX_DIR];
+  char fname[_MAX_FNAME];
   char ext[_MAX_EXT];
-  _splitpath(argv[0], drive, dir, fname, ext); 
+  _splitpath(argv[0], drive, dir, fname, ext);
+  //Splice command
   char ch[100] = "bash.exe -c \"";
   strcat_s(ch, sizeof(ch), fname);
   int count;
@@ -17,7 +19,8 @@ int main(int argc, char *argv[]) {
     strcat_s(ch, sizeof(ch), ch0);
   }
   strcat_s(ch, sizeof(ch), "\"");
+  //Forward command
   system(ch);
-
+  
   return 0;
 }
