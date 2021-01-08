@@ -4,18 +4,16 @@
 using namespace std;
 
 int main(int argc, char* argv[]) {
-    //Get program path information
     char drive[_MAX_DRIVE];
     char dir[_MAX_DIR];
     char fname[_MAX_FNAME];
     char ext[_MAX_EXT];
-    _splitpath_s(argv[0], drive, sizeof(drive), dir, sizeof(dir), fname, sizeof(fname), ext, sizeof(ext));
-    //Splice command
+    _splitpath_s(argv[0], drive, sizeof(drive), dir, sizeof(dir), fname, sizeof(fname), ext, sizeof(ext));  //Get program path information
+    
     string ch_body = "";
     ch_body = fname;
 
     int count = 1;
-    long length = 0;
     for (count; count < argc; ++count) {
         string ch_tmp = " ";
         ch_tmp += argv[count];
@@ -27,11 +25,11 @@ int main(int argc, char* argv[]) {
     string ch = "";
     ch += ch_head;
     ch += ch_body;
-    ch += ch_tail;
-    //Forward command
+    ch += ch_tail;  //Splice command
+    
     const char* ch_out;
     ch_out = ch.c_str();
-    system(ch_out);
+    system(ch_out);  //Forward command
 
     return 0;
 }
