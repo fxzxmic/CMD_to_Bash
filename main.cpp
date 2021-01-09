@@ -21,7 +21,7 @@ int main(int argc, char* argv[]) {
 
     wstring widstr;
     widstr = wstring(ch.begin(), ch.end());
-    LPWSTR sConLin= (LPWSTR)widstr.c_str();  //Convert string to LPWSTR
+    LPWSTR sConLin = (LPWSTR)widstr.c_str();  //Convert string to LPWSTR
 
     STARTUPINFO si;
     PROCESS_INFORMATION pi;
