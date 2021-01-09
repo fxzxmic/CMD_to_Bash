@@ -1,5 +1,5 @@
-#include <stdlib.h>
-#include <string>
+#include <iostream>
+#include <Windows.h>
 
 using namespace std;
 
@@ -9,27 +9,30 @@ int main(int argc, char* argv[]) {
     char fname[_MAX_FNAME];
     char ext[_MAX_EXT];
     _splitpath_s(argv[0], drive, sizeof(drive), dir, sizeof(dir), fname, sizeof(fname), ext, sizeof(ext));  //Get program path information
-    
-    string ch_body = "";
-    ch_body = fname;
 
+    string ch = "bash.exe -c \"";
+    ch += fname;
     int count = 1;
     for (count; count < argc; ++count) {
-        string ch_tmp = " ";
-        ch_tmp += argv[count];
-        ch_body += ch_tmp;
+        ch += " ";
+        ch += argv[count];
     }
+    ch += "\"";  //Splice command
 
-    string ch_head = "bash.exe -c \"";
-    string ch_tail = "\"";
-    string ch = "";
-    ch += ch_head;
-    ch += ch_body;
-    ch += ch_tail;  //Splice command
-    
-    const char* ch_out;
-    ch_out = ch.c_str();
-    system(ch_out);  //Forward command
+    wstring widstr;
+    widstr = wstring(ch.begin(), ch.end());
+    LPWSTR sConLin= (LPWSTR)widstr.c_str();  //Convert string to LPWSTR
+
+    STARTUPINFO si;
+    PROCESS_INFORMATION pi;
+    memset(&si, 0, sizeof(si));
+    memset(&pi, 0, sizeof(pi));
+
+    CreateProcess(NULL, sConLin, NULL, NULL, false, 0, NULL, NULL, &si, &pi);
+    WaitForSingleObject(pi.hProcess, INFINITE);
+
+    CloseHandle(pi.hProcess);
+    CloseHandle(pi.hThread);  //Create and terminate child process
 
     return 0;
 }
