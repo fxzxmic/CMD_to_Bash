@@ -10,14 +10,14 @@ int main(int argc, char* argv[]) {
     char ext[_MAX_EXT];
     _splitpath_s(argv[0], drive, sizeof(drive), dir, sizeof(dir), fname, sizeof(fname), ext, sizeof(ext));  //Get program path information
 
-    string ch = "bash.exe -c \"";
+    string ch = "bash.exe -c \"\\\"\"";
     ch += fname;
     int count = 1;
     for (count; count < argc; ++count) {
         ch += " ";
         ch += argv[count];
     }
-    ch += "\"";  //Splice command
+    ch += "\\\"\"\"";  //Splice command
 
     wstring widstr;
     widstr = wstring(ch.begin(), ch.end());
