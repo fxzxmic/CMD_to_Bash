@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <Windows.h>
 
 using namespace std;
@@ -8,7 +8,7 @@ int main(int argc, char* argv[]) {
     char dir[_MAX_DIR];
     char fname[_MAX_FNAME];
     char ext[_MAX_EXT];
-    _splitpath_s(argv[0], drive, sizeof(drive), dir, sizeof(dir), fname, sizeof(fname), ext, sizeof(ext));  //Get program path information
+    _splitpath_s(argv[0], drive, sizeof(drive), dir, sizeof(dir), fname, sizeof(fname), ext, sizeof(ext));
 
     string ch = "bash.exe -c \"\\\"\"";
     ch += fname;
@@ -17,11 +17,11 @@ int main(int argc, char* argv[]) {
         ch += " ";
         ch += argv[count];
     }
-    ch += "\\\"\"\"";  //Splice command
+    ch += "\\\"\"\"";
 
     wstring widstr;
     widstr = wstring(ch.begin(), ch.end());
-    LPWSTR sConLin = (LPWSTR)widstr.c_str();  //Convert string to LPWSTR
+    LPWSTR sConLin = (LPWSTR)widstr.c_str();
 
     STARTUPINFO si;
     PROCESS_INFORMATION pi;
@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
     WaitForSingleObject(pi.hProcess, INFINITE);
 
     CloseHandle(pi.hProcess);
-    CloseHandle(pi.hThread);  //Create and terminate child process
+    CloseHandle(pi.hThread);
 
     return 0;
 }
