@@ -19,6 +19,7 @@ int main(int argc, char* argv[]) {
     }
     ch += "\\\"\"\"";
 
+    DWORD dwExitCode;
     wstring widstr;
     widstr = wstring(ch.begin(), ch.end());
     LPWSTR sConLin = (LPWSTR)widstr.c_str();
@@ -28,11 +29,12 @@ int main(int argc, char* argv[]) {
     memset(&si, 0, sizeof(si));
     memset(&pi, 0, sizeof(pi));
 
-    CreateProcess(NULL, sConLin, NULL, NULL, false, 0, NULL, NULL, &si, &pi);
-    WaitForSingleObject(pi.hProcess, INFINITE);
-
-    CloseHandle(pi.hProcess);
+    CreateProcess(NULL, sConLin, NULL, NULL, true, 0, NULL, NULL, &si, &pi);
+    
     CloseHandle(pi.hThread);
-
-    return 0;
+    WaitForSingleObject(pi.hProcess, INFINITE);
+    GetExitCodeProcess(pi.hProcess, &dwExitCode);
+    CloseHandle(pi.hProcess);
+    
+    return dwExitCode;
 }

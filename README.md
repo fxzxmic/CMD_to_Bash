@@ -1,5 +1,5 @@
 # CMD_to_Bash
-Forward CMD command to Bash
+Relay CMD command to Bash
 ## How it Work
 It gets its own program name and running parameters to splice into `bash.exe -c "<Program Name> <Running Parameters>"`, and create a `bash.exe` process with this command.
 ## How to Use
