@@ -1,9 +1,10 @@
 .vs
-x64
-x86
+.vscode
+build
 *.h
 *.rc
 *.aps
 *.sln
 *.vcxproj
 *.vcxproj.*
+*.obj
